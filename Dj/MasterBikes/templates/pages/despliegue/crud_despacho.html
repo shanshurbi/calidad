@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantenedor</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"> 
+</head>
+<body>
+    {% include 'base/header_admin.html' %}
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 shadow-lg mx-auto text-center p-3">
+                    <!-- Seguridad -->
+                    {% if a %}
+                    <!-- Función: listar varios o uno -->
+                    {% if f == 'filtro' %}
+                        <h2 class="my-3">Lista de Despachos</h2>
+                    {% elif f == 'sin' %}
+                        <h2 class="my-3">Despacho de la compra id: {{despacho.id_pago.id_pago}}</h2>
+                    {% endif %}
+                    <br>
+                    <table class="table table-dark table-hover table-bordered">
+                        <thead>
+                            <th>Id</th>
+                            <th>Usuario</th>
+                            <th>Id de Compra</th>
+                            <th>Fecha de pedido</th>
+                            <th>Salida pedido</th>
+                            <th>Recepción pedido</th>
+                            {% if request.session.tipo != 'Cliente' %}
+                                <th>Modificar</th>
+                                <th>Eliminar</th>
+                            {% endif %}
+                        </thead>
+                        <tbody>
+                            {% if f == 'filtro' %}
+                                {% if despachos %}
+                                    {% for tmp in despachos %}
+                                        <tr>
+                                            <td><a href="{% url 'crud-despacho' pk=tmp.id_pago.id_pago %}">{{tmp.id_despacho}}</a></td>
+                                            <td>{{tmp.id_pago.rut.user.username}}</td>
+                                            <td>{{tmp.id_pago.id_pago}}</td>
+                                            <td>{{tmp.pedido|date:"d/m/Y H:i"}}</td>
+                                            {% if tmp.envio %}
+                                                <td>{{tmp.envio|date:"d/m/Y H:i"}}</td>
+                                            {% else %}
+                                                <td>---</td>
+                                            {% endif %}
+                                            {% if tmp.recibo %}
+                                                <td>{{tmp.recibo|date:"d/m/Y H:i"}}</td>
+                                            {% else %}
+                                                <td>---</td>
+                                            {% endif %}
+                                            {% if request.session.tipo != 'Cliente' %}
+                                                <td><a href=""><button class="btn btn-warning">Modificar</button></a></td>
+                                                <td><a href=""><button class="btn btn-danger">Eliminar</button></a></td>
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            {% else %}
+                                {% if despacho %}
+                                    <tr>
+                                        <td>{{despacho.id_despacho}}</td>
+                                        <td>{{despacho.id_pago.rut.user.username}}</td>
+                                        <td>{{despacho.id_pago.id_pago}}</td>
+                                        <td>{{despacho.pedido|date:"d/m/Y H:i"}}</td>
+                                        {% if despacho.envio %}
+                                            <td>{{despacho.envio|date:"d/m/Y H:i"}}</td>
+                                        {% else %}
+                                            <td>---</td>
+                                        {% endif %}
+                                        {% if despacho.recibo %}
+                                            <td>{{despacho.recibo|date:"d/m/Y H:i"}}</td>
+                                        {% else %}
+                                            <td>---</td>
+                                        {% endif %}
+                                        {% if request.session.tipo != 'Cliente' %}
+                                            <td><a href=""><button class="btn btn-warning">Modificar</button></a></td>
+                                            <td><a href=""><button class="btn btn-danger">Eliminar</button></a></td>
+                                        {% endif %}
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        </tbody>
+                    </table>
+
+                    {% if f == 'sin' %}
+                        <br>
+                        <h2>Productos en la Compra:</h2>
+                        <table class="table table-dark table-hover table-bordered">
+                            <thead>
+                                <th>Id</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Subtotal</th>
+                            </thead>
+                            <tbody>
+                                {% if detalles %}
+                                    {% for det in detalles %}
+                                        {% if det.id_pago.id_pago == despacho.id_pago.id_pago %}
+                                            <tr>
+                                                <td>{{det.id_producto.id_producto}}</td>
+                                                <td>{{det.id_producto.nombre}}</td>
+                                                <td>{{det.cantidad}}</td>
+                                                <td>{{det.subtotal}}</td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                <tr>
+                                    <td colspan="3">Total</td>
+                                    <td>{{despacho.id_pago.total}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    {% endif %}
+
+                    {% if mensaje %}
+                        <div class="alert alert-danger w-50 mx-auto">
+                            {{mensaje}}
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="row">
+                        <div class="col-md-8 shadow-lg mx-auto text-center p-3">
+                            <h1>Error</h1>
+                            <h4>Vuelva a la página principal...</h4>
+                            <a href="{% url 'Principal' %}">
+                                <button class="btn btn-outline-primary my-1">Inicio</button>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+
+                </div>
+            </div>
+            <br>
+            <br>
+        </div>
+    </main>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

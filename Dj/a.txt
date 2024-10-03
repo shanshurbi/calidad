@@ -1,0 +1,3 @@
+-- arriendo, servicios, tiendasss, producto, comprar, pagar -> registrar
+
+-- comprar con dspacho, ver compras, desconectar, conectar erefgy, comprar con despacho mostrar despachos

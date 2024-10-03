@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MasterBikes</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"> 
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+
+  </head>
+<body>
+
+    <!-- -------------------------------------------------------------------- -->
+    {% include 'base/header.html' %}
+    <!-- -------------------------------------------------------------------- -->
+    <br>
+    <main>
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Solicitud de arriendo</h3>
+                </div>
+                <div class="card-body">
+                    <form class="row g-3" id="rentalForm">
+                        <div class="col-md-12">
+                            <label for="nombre" class="form-label">Nombre y apellido</label>
+                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="NOMBRE Y APELLIDO">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="correo" class="form-label">Correo electrónico</label>
+                            <input type="email" id="correo" name="correo" class="form-control" placeholder="CORREO ELECTRÓNICO">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="numero" class="form-label">Número de contacto</label>
+                            <input type="number" id="numero" name="numero" class="form-control" placeholder="NÚMERO DE CONTACTO">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="bicicleta" class="form-label">Tipo de bicicleta</label>
+                            <select id="bicicleta" name="bicicleta" class="form-select">
+                                <option value="">TIPO DE BICICLETA</option>
+                                <option value="urbana">URBANA</option>
+                                <option value="montana">MONTAÑA</option>
+                                <option value="carretera">CARRETERA</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="talla" class="form-label">Talla</label>
+                            <select id="bicicleta" name="bicicleta" class="form-select">
+                                <option value="">TALLA</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                                <option value="XXL">XXL</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="fecha" class="form-label">Rango de fechas</label>
+                            <input type="date" id="fecha" name="fecha" class="form-control" placeholder="RANGO DE FECHAS">
+                        </div>
+                        <div class="col-12">
+                            <button class="btn btn-dark" type="submit">Enviar formulario</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+   <!-- jQuery  -->
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.js"></script>
+    </main>
+    <br>
+    <br>
+    <!-- -------------------------------------------------------------------- -->
+    {% include 'base/footer.html' %}
+    <!-- -------------------------------------------------------------------- -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'validaciones.js' %}"></script>
+    <!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+</body>
+</html>

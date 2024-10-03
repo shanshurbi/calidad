@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mantenedor</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"> 
+</head>
+<body>
+    {% include 'base/header_admin.html'%}
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md shadow-lg mx-auto text-center p-3">
+                    <br>
+                    <h2 class="my-3">Lista de Arriendos</h2><br>
+                    
+                    <table class="table table-dark table-hover table-bordered">
+                        <thead>
+                            <th>id</th>
+                            <th>Username</th>
+                            <th>Direccion</th>
+                            <th>Tipo Bicicleta</th>
+                            <th>Talla</th>
+                            <th>Fecha inicio</th>
+                            <th>Fecha termino</th>
+                            <th>Forma de Pago</th>
+                            <th>Modificar</th>
+                            <th>Eliminar</th>
+                        </thead>
+                        <tbody>
+                            {% if arriendos %}
+                                {% for arr in arriendos %}
+                                    <tr>
+                                        <td>{{arr.id_arriendo}}</td>
+                                        
+                                        {% if usuarios %}
+                                            {% for user in usuarios %}
+                                                {% if arr.rut.rut == user.rut%}
+                                                    <td>{{user.user.username}}</td>
+                                                {% endif %}
+                                                
+                                            {% endfor%}
+                                        {% endif %}
+
+                                        <td>{{arr.direccion}}</td>
+                                        
+                                        {% if tipoBici %}
+                                            {% for bici in tipoBici %}
+                                                {% if bici.id_tipo_bici == arr.id_tipo_bici.id_tipo_bici %}
+                                                    <td>{{bici.tipo}}</td>
+                                                {% endif %}
+                                            {% endfor%}
+                                        {% endif %}
+
+                                        {% if talla %}
+                                            {% for talla in talla %}
+                                                {% if talla.id_talla == arr.id_talla.id_talla%}
+                                                    <td>{{talla.talla}}</td>
+                                                {% endif %}
+                                            {% endfor%}
+                                        {% endif %}
+
+                                        <td>{{arr.inicio}}</td>
+                                        <td>{{arr.termino}}</td>
+
+                                        {% if formaPago %}
+                                            {% for pago in formaPago %}
+                                                {% if arr.id_forma_pago.id_forma_pago == pago.id_forma_pago %}
+                                                    <td>{{pago.forma}}</td>
+                                                {% endif %}
+                                            {% endfor%}
+                                        {% endif %}
+
+                                        <td><a href=""><button
+                                            class="btn btn-warning">Modificar</button></a></td>
+                                        <td><a href=""><button
+                                            class="btn btn-danger">Eliminar</button></a></td>
+                                    </tr>
+                                {% endfor%}
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    {% if mensaje%}
+                        <div class="alert alert-danger w-50 mx-auto">
+                            {{mensaje}}
+                        </div>
+                    {% endif%}
+                    <a href="">
+                        <button class="btn btn-primary">Agregar Registro</button>
+                    </a>
+                    <h4>Ver tallas, formas de pago,tipos de bicicletas</h4>
+                    <a href="{% url 'crud-varios' %}">
+                        <button class="btn btn-info">
+                            ir
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>
